@@ -54,7 +54,7 @@ class filehandler(object):
 		self.in_array = True
 		if self.mpi_comm.Get_rank()==0:
 			for f in self.files:
-				f.Write_shared('[\n')
+				f.Write_shared([b'[\n', 2, MPI.CHAR])
 		self.mpi_comm.Barrier()
 
 	def exit_array(self):
@@ -64,7 +64,7 @@ class filehandler(object):
 		self.mpi_comm.Barrier()
 		if self.mpi_comm.Get_rank()==0:
 			for f in self.files:
-				f.Write_shared('\n]')
+				f.Write_shared([b'\n]', 2, MPI.CHAR])
 		self.in_array = False
 
 	@contextmanager
@@ -85,6 +85,6 @@ class filehandler(object):
 		json_string = ''
 		if self.array_between_elements:
 			json_string = ',\n'
-		json_string = json_string + json.dumps(obj,indent=2)
-		self.files[fileindex].Write_shared(json_string)
+		json_string = json_string + json.dumps(str(obj),indent=2)
+		self.files[fileindex].Write_shared([json_string.encode('utf-8'), len(json_string), MPI.CHAR])
 		self.array_between_elements = self.in_array

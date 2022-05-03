@@ -129,7 +129,7 @@ class swaphandler(object):
         """
         dump the value of all internal variables to the log file, for debugging
         """
-        with open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a', buffering=0) as log_file:
+        with open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a') as log_file:
             # print all vars
             log_file.write('-'*10+'\n')
             log_file.write('beta_index : '+str(self.beta_index)+'\n')
@@ -180,7 +180,7 @@ class swaphandler(object):
         self.mpi_process_down_pointer = int(self.mpi_process_rank)-1
 
         if self.verbose:
-            with open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a', buffering=0) as log_file:
+            with open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a') as log_file:
                 #log_file.write('at temp '+str(self.beta_index)+' initial self.mpi_process_up_pointer '+str(self.mpi_process_up_pointer)+'\n')
                 #log_file.write('at temp '+str(self.beta_index)+' initial self.mpi_process_down_pointer '+str(self.mpi_process_down_pointer)+'\n')
                 log_file.write('at temp '+str(self.beta_index)+'\n')
@@ -274,7 +274,7 @@ class swaphandler(object):
         # self.verbose is True
         try:
             if self.verbose:
-                log_file = open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a', buffering=0)
+                log_file = open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a')
                 log_file.write('-'*10+'\n')
                 log_file.write('at sync'+'\n')
 
@@ -445,7 +445,7 @@ class swaphandler(object):
         # self.verbose is True
         try:
             if self.verbose:
-                log_file = open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a', buffering=0)
+                log_file = open('log-file_rank'+str(self.mpi_process_rank)+'.txt', 'a')
                 log_file.write('-'*10+'\n')
                 log_file.write('at swap'+'\n')
                 log_file.write('remaining available swaps '+str(len(self.pt_subsets))+'\n')
